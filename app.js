@@ -40,10 +40,25 @@ analyser.fftSize = 64; // This needs to be a power of 2 and determines the numbe
 var waveform = new Waveform(scene, analyser);
 
 // Fetch the audio file
-fetch('./assets/sample.mp3')
+const audioFileUrl = './assets/sample.mp3';
+fetch(audioFileUrl)
   .then(response => response.arrayBuffer())
   .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
   .then(audioBuffer => {
+    // Access metadata
+    const artist = audioBuffer.artist;
+    const title = audioBuffer.title;
+
+    // Update HTML content
+    document.getElementById('artist').textContent = artist || '';
+    document.getElementById('title').textContent = title || '';
+
+    // Extract the filename from the URL
+    const filename = audioFileUrl.substring(audioFileUrl.lastIndexOf('/') + 1);
+
+    // Update HTML content with the filename
+    document.getElementById('filename').textContent = filename;
+
     // Create a BufferSourceNode
     let source = audioContext.createBufferSource();
     source.buffer = audioBuffer;
@@ -57,8 +72,12 @@ fetch('./assets/sample.mp3')
 
     // Start the render loop
     render();
+
+    // Log the audioBuffer
+    console.log(audioBuffer);
   })
   .catch(error => console.error('Error:', error));
+
 
 // Create a data array for the frequency data
 var frequencyData = new Uint8Array(analyser.frequencyBinCount);
@@ -87,6 +106,7 @@ function render() {
 
 
 // mp3 must be added into assets folder. Can be titled 'sample.mp3' or modify fetch to match file name
+
 // // run in terminal: npm install three
 
 // // run in root folder to start: python -m http.server  
