@@ -1,3 +1,6 @@
+import Waveform from './waveform.js';
+
+
 // Create a scene
 var scene = new THREE.Scene();
 
@@ -32,6 +35,9 @@ var audioContext = new (window.AudioContext || window.webkitAudioContext)();
 // Create an AnalyserNode
 var analyser = audioContext.createAnalyser();
 analyser.fftSize = 64; // This needs to be a power of 2 and determines the number of bars
+
+// Create a Waveform object
+var waveform = new Waveform(scene, analyser);
 
 // Fetch the audio file
 fetch('./assets/sample.mp3')
@@ -71,7 +77,10 @@ function render() {
     let height = 30 * percent;
     bars[i].scale.y = height;
   }
-  
+
+  // Update the waveform
+  waveform.updateWaveform();
+
   // Render the scene
   renderer.render(scene, camera);
 }
