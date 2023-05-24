@@ -84,3 +84,7 @@ function render() {
   // Render the scene
   renderer.render(scene, camera);
 }
+
+  // // run in root folder to start: python -m http.server  
+
+  // // Run this code in a browser with Three.js and OrbitControls loaded
