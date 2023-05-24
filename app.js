@@ -85,6 +85,10 @@ function render() {
   renderer.render(scene, camera);
 }
 
-  // // run in root folder to start: python -m http.server  
+
+// mp3 must be added into assets folder. Can be titled 'sample.mp3' or modify fetch to match file name
+// // run in terminal: npm install three
+
+// // run in root folder to start: python -m http.server  
 
   // // Run this code in a browser with Three.js and OrbitControls loaded
